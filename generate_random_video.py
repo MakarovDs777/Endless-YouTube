@@ -1,6 +1,7 @@
 import os
 import numpy as np
 import cv2
+import shutil
 
 def generate_random_video(width, height, duration):
     # Генерация случайного видео с цветным шумом
@@ -32,11 +33,9 @@ def save_video_to_desktop(video_path, shelf_number, video_number):
 if __name__ == "__main__":
     width = 1280  # Ширина видео
     height = 720  # Высота видео
-    duration = 10  # Продолжительность видео в секундах
-    
-    generate_random_video(width, height, duration)
     
     shelf_number = int(input("Введите номер стеллажа: "))
     video_number = int(input("Введите номер видео в этом стеллаже: "))
     
+    generate_random_video(width, height, shelf_number)
     save_video_to_desktop('random_video.mp4', shelf_number, video_number)

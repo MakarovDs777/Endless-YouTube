@@ -3,10 +3,13 @@ import numpy as np
 import cv2
 import shutil
 
-def generate_random_video(width, height, duration):
+def generate_random_video(width, height, duration, seed):
     # Генерация случайного видео с цветным шумом
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
     video = cv2.VideoWriter('random_video.mp4', fourcc, 30, (width, height))
+    
+    # Установка уникального зерна для генератора случайных чисел
+    np.random.seed(seed)
     
     for _ in range(duration * 30):  # 30 FPS
         frame = np.random.randint(0, 256, (height, width, 3), dtype=np.uint8)  # Случайный цветной шум
@@ -37,5 +40,6 @@ if __name__ == "__main__":
     shelf_number = int(input("Введите номер стеллажа: "))
     video_number = int(input("Введите номер видео в этом стеллаже: "))
     
-    generate_random_video(width, height, shelf_number)
+    # Используем номер стеллажа как уникальное зерно для генерации случайного шума
+    generate_random_video(width, height, shelf_number, seed=shelf_number)
     save_video_to_desktop('random_video.mp4', shelf_number, video_number)

@@ -34,10 +34,10 @@ def save_video_to_desktop(video_path, shelf_number, video_number):
     
     print(f"Видео успешно сохранено на рабочий стол: {video_filename}")
 
-def add_audio(video_path):
-    # Создаем аудиофайл с белым шумом такой же продолжительности, как и видео
+def add_audio(video_path, audio_filename):
+    # Создаем аудиофайл с уникальными аудио данными для каждого видео
     duration = VideoFileClip(video_path).duration
-    audio = AudioFileClip('white_noise.wav').subclip(0, duration)
+    audio = AudioFileClip(audio_filename).subclip(0, duration)
 
     # Загружаем видео и добавляем к нему аудио
     video = VideoFileClip(video_path)
@@ -60,8 +60,12 @@ if __name__ == "__main__":
     generate_random_video(width, height, shelf_number, seed=shelf_number)
     video_path = 'random_video.mp4'
     
+    # Создаем уникальный звук для каждого видео
+    audio_filename = f'audio_shelf{shelf_number}_video{video_number}.wav'
+    # Генерация аудиофайла здесь
+    
     # Добавляем звук к видео
-    video_with_audio_path = add_audio(video_path)
+    video_with_audio_path = add_audio(video_path, audio_filename)
     
     # Сохраняем видео с звуком на рабочий стол
     save_video_to_desktop(video_with_audio_path, shelf_number, video_number)
